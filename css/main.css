@@ -1,10 +1,10 @@
 :root {
-    --clr-main: #4b33a8;
-    --clr-main-dark: #221655;
-    --clr-main-light: #624ace;
+    --clr-main: #3a15db;
+    --clr-main-dark: #0f0636;
+    --clr-main-light: #6849f1;
     --clr-white: #ececec;
     --clr-gray: #e2e2e2;
-    --clr-red: #961818;
+    --clr-red: #9e0d0d;
 }
 
 * {
@@ -61,6 +61,13 @@ aside {
     gap: .5rem;
 }
 
+.header-mobile {
+    display: none;
+}
+
+.btn-menu-close {
+    display: none;
+}
 
 .btn-menu {
     background-color: transparent;
@@ -283,3 +290,94 @@ main {
     display: none;
 }
 
+/* *********** Medias Queries *********** */
+@media screen and (max-width: 1024px) {
+    .wrapper {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    aside {
+        position: fixed;
+        z-index: 9;
+        background-color: var(--clr-main);
+        left: 0;
+        box-shadow: 0 0 0 100vmax rgba(0, 0, 0, .75);
+        transform: translateX(-100%);
+        opacity: 0;
+        visibility: hidden;
+
+    }
+
+    .aside-visible {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+        transition: transform .3s, opacity .3s;
+    }
+
+    main {
+        margin: 1rem;
+        padding: 2rem;
+    }
+
+    .products-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .header-mobile {
+        display: flex;
+        padding: 1rem;
+        justify-content: space-between;
+        align-items: center;
+        .logo {
+            color: var(--clr-gray);
+        }
+    }
+
+    .btn-menu-list, .btn-menu-close {
+        background-color: transparent;
+        color: var(--clr-gray);
+        border: 0;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+
+    .btn-menu-close {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+
+}
+@media screen and (max-width: 780px) {
+    .products-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .products-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cart-product {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        padding: .5rem;
+    }
+
+    .cart-actions {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .products-container {
+        grid-template-columns: 1fr;
+    }
+}

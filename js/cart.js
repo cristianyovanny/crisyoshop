@@ -41,7 +41,7 @@ function loadProductsInCart() {
                     <small>Sub-total</small>
                     <h3>${product.price * product.amount}</h3>
                 </div>
-                <div>
+                <div class="cart-product-btn">
                     <button id="${product.id}" class="cart-product-remove"><i class="bi bi-trash-fill"></i></button>
                 </div>
             `;
