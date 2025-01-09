@@ -11,6 +11,11 @@ const btnEmptyCart = document.querySelector("#btn-clear-cart");
 const containerTotal = document.querySelector("#total");
 const btnBuy = document.querySelector("#btn-buy");
 
+// Datos para envio de mensaje de WhatsApp
+const phone = '573104656886';
+const message = generateMessage();
+const url = `https://wa.me/${phone}?text=${message}`;
+
 function loadProductsInCart() {
     if (productsInCart && productsInCart.length > 0) {
         containerCartEmpty.classList.add("disabled");
@@ -94,8 +99,12 @@ function updateTotal() {
 }
 
 btnBuy.addEventListener("click", buyInTheCart);
+console.log(`No has comprado ${productsInCart}`);
 
 function buyInTheCart() {
+    const url = `https://wa.me/${phone}?text=${generateMessage()}`;
+    window.open(url, '_blank');
+    console.log(`Aqui ya compraste ${productsInCart}`);
     productsInCart.length = 0;
     localStorage.setItem('products-in-cart', JSON.stringify(productsInCart));
     containerCartEmpty.classList.add("disabled");
@@ -103,3 +112,21 @@ function buyInTheCart() {
     containerCartActions.classList.add("disabled");
     containerCartShopping.classList.remove("disabled");
 }
+
+function generateMessage() {
+    if (productsInCart.length === 0) {
+        return 'El carrito está vacío.';
+    }
+
+    let message = 'Hola, quiero finalizar mi compra. Estos son los productos:\n\n';
+
+    productsInCart.forEach((product, index) => {
+        message += `${index + 1}.) ${product.amount} - ${product.title} - Subtotal: ${product.price * product.amount}\n`;
+    });
+
+    const total = productsInCart.reduce((sum, product) => sum + product.price * product.amount, 0);
+    message += `\nTotal: $${total.toFixed(2)}`;
+    
+    console.log(message);
+    return encodeURIComponent(message); // Codificar para URL
+}; 
