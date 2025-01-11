@@ -183,7 +183,18 @@ main {
 
 }
 
-.btn-add-to-cart {
+.quantity-control {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .2rem;
+    align-items: center;
+    width: 100%;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
+
+
+.btn-add-to-cart, .btn-input, .quantity-input {
     border: 0;
     background-color: var(--clr-white);
     color: var(--clr-main);
@@ -195,6 +206,9 @@ main {
     transition: background-color .2s, color .2s;
 }
 
+.quantity-input {
+    text-align: center;
+}
 .btn-add-to-cart:hover {
     background-color: var(--clr-main);
     color: var(--clr-white);

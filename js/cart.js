@@ -36,7 +36,7 @@ function loadProductsInCart() {
                 </div>
                 <div class="cart-product-amount">
                     <small>Cantidad</small>
-                    <p>${product.amount}</p>
+                    <p>${product.quantity}</p>
                 </div>
                 <div class="cart-product-price">
                     <small>Precio</small>
@@ -44,7 +44,7 @@ function loadProductsInCart() {
                 </div>
                 <div class="cart-product-subtotal">
                     <small>Sub-total</small>
-                    <h3>${product.price * product.amount}</h3>
+                    <h3>${product.price * product.quantity}</h3>
                 </div>
                 <div class="cart-product-btn">
                     <button id="${product.id}" class="cart-product-remove"><i class="bi bi-trash-fill"></i></button>
@@ -94,12 +94,12 @@ function emptyCart() {
 }
 
 function updateTotal() {
-    const totalCalculated = productsInCart.reduce((acc, product) => acc + (product.price * product.amount), 0);
+    const totalCalculated = productsInCart.reduce((acc, product) => acc + (product.price * product.quantity), 0);
     total.innerText = `$${totalCalculated}`;
 }
 
 btnBuy.addEventListener("click", buyInTheCart);
-console.log(`No has comprado ${productsInCart}`);
+//console.log(`No has comprado ${productsInCart}`);
 
 function buyInTheCart() {
     const url = `https://wa.me/${phone}?text=${generateMessage()}`;
@@ -121,12 +121,14 @@ function generateMessage() {
     let message = 'Hola, quiero finalizar mi compra. Estos son los productos:\n\n';
 
     productsInCart.forEach((product, index) => {
-        message += `${index + 1}.) ${product.amount} - ${product.title} - Subtotal: ${product.price * product.amount}\n`;
+        message += `${product.quantity} - ${product.title} = $ ${product.price * product.quantity}\n`;
+        //message += `${index + 1}) ${product.quantity} - ${product.title} - $: ${product.price * product.quantity}\n`;
     });
 
-    const total = productsInCart.reduce((sum, product) => sum + product.price * product.amount, 0);
-    message += `\nTotal: $${total.toFixed(2)}`;
+    const total = productsInCart.reduce((sum, product) => sum + product.price * product.quantity, 0);
+    message += `\nTotal: $${total}`;
+    //message += `\nTotal: $${total.toFixed(2)}`;
     
-    console.log(message);
+    //console.log(message);
     return encodeURIComponent(message); // Codificar para URL
 }; 
